@@ -1,5 +1,3 @@
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
-
 function BottomThumbNav({ active, onChange }) {
   const items = [
     { key: "home", label: "Home", icon: "/img/home.png" },
@@ -10,25 +8,32 @@ function BottomThumbNav({ active, onChange }) {
   ];
 
   return (
-    <Navbar bg="light" className="border-top" style={{ position: "sticky", bottom: 0 }}>
-      <Container className="px-2">
-        <Nav className="w-100 d-flex justify-content-between">
+    <div className="bg-light border-top sticky-bottom">
+      <div className="container px-2">
+        <div className="d-flex justify-content-between py-2">
           {items.map((it) => (
-            <Button
+            <button
               key={it.key}
+              type="button"
               onClick={() => onChange(it.key)}
-              variant={active === it.key ? "primary" : "outline-secondary"}
-              className="flex-grow-1 mx-1 py-2 d-flex flex-column align-items-center"
+              className={
+                "btn flex-grow-1 mx-1 py-2 d-flex flex-column align-items-center " +
+                (active === it.key ? "btn-primary" : "btn-outline-secondary")
+              }
               style={{ minHeight: 56 }}
             >
-              <img src={it.icon} alt={it.label} style={{ width: 22, height: 22 }} />
+              <img
+                src={it.icon}
+                alt={it.label}
+                style={{ width: 22, height: 22, objectFit: "contain" }}
+                onError={(e) => (e.currentTarget.style.display = "none")}
+              />
               <small className="mt-1">{it.label}</small>
-            </Button>
+            </button>
           ))}
-        </Nav>
-      </Container>
-    </Navbar>
+        </div>
+      </div>
+    </div>
   );
 }
-
-export default BottomThumbNav;
+export default BottomThumbNav
